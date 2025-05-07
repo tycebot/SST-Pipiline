@@ -1,0 +1,9 @@
+streamlit
+ndbc_api
+pandas
+plotly
+matplotlib
+numpy
+python-dateutil
+datetime
+cartopy
