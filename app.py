@@ -7,6 +7,7 @@ import cartopy.crs as ccrs
 import cartopy.feature as cfeature
 from datetime import datetime, timedelta
 import plotly.graph_objects as go
+import io
 # Initialize NDBC API
 api = NdbcApi()
 
@@ -31,7 +32,15 @@ def plot_buoy_data(df,station):
     fig.update_layout(title=station+' SST over time', xaxis_title='Date', yaxis_title='SST (°C)')
     return fig
     
-
+def static_plot(df,station):
+    # Create matplotlib figure for static download
+    fig_static, ax = plt.subplots()
+    ax.plot(df['timestamp'], df['WTMP'], label='SST')
+    ax.set_title(station + ' SST over time')
+    ax.set_xlabel('Date')
+    ax.set_ylabel('SST (°C)')
+    ax.xaxis.set_major_formatter(DateFormatter('%Y-%m-%d'))
+    return fig_static
 
 def main():
     st.title("Buoy Data Visualization")
@@ -68,25 +77,33 @@ def main():
     
     # Get data once and reuse
     df = get_cached_data(BUOY_STATIONS[station], start_date, end_date)
-    
-    # Download buttons
-    if st.sidebar.button("Download Data"):
-        filename = station + '.csv'
-        df.to_csv(filename)
-        st.sidebar.success(f'Data saved to {filename}')
-    
-    if st.sidebar.button("Download Plot"):
-        plot = get_cached_plot(df, station)
-        filename = station + '_' + start_date + '_' + end_date + '.html'
-        plot.write_html(filename)
-        st.sidebar.success(f'Plot saved to {filename}')
-    
+
     # Main content area
     st.header("Buoy Data Visualization")
     
     # Get and plot the data (using cached plot)
     fig = get_cached_plot(df, station)
     st.plotly_chart(fig)
+
+    
+    # Retrieve the cached plot
+    fig = get_cached_plot(df, station)
+    statplot=static_plot(df,station)
+    buffer = io.BytesIO()
+    statplot.savefig(buffer, format='png',dpi=300)
+    buffer.seek(0)
+
+    #Download button for data
+    st.download_button("Download Data", 
+    df.to_csv(index=False), 
+    file_name=station + 
+    '.csv')
+    
+    # Download button for static plot   
+    st.download_button(
+        label="Download Plot",
+        data=buffer,
+        file_name=station + '.png')
 
 if __name__ == "__main__":
     main()
