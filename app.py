@@ -42,6 +42,18 @@ def static_plot(df,station):
     ax.xaxis.set_major_formatter(DateFormatter('%Y-%m-%d'))
     return fig_static
 
+ # Function to create and manage the plot buffer
+def create_plot_buffer(df, station):
+    fig = static_plot(df, station)
+    buffer = io.BytesIO()
+    try:
+        fig.savefig(buffer, format='png', dpi=300)
+        buffer.seek(0)
+        return buffer.getvalue()
+    finally:
+        buffer.close()
+        plt.close(fig)
+
 def main():
     st.title("Buoy Data Visualization")
     
@@ -85,14 +97,6 @@ def main():
     fig = get_cached_plot(df, station)
     st.plotly_chart(fig)
 
-    
-    # Retrieve the cached plot
-    fig = get_cached_plot(df, station)
-    statplot=static_plot(df,station)
-    buffer = io.BytesIO()
-    statplot.savefig(buffer, format='png',dpi=300)
-    buffer.seek(0)
-
     #Download button for data
     st.download_button("Download Data", 
     df.to_csv(index=False), 
@@ -102,7 +106,7 @@ def main():
     # Download button for static plot   
     st.download_button(
         label="Download Plot",
-        data=buffer,
+        data=create_plot_buffer(df, station),
         file_name=station + '.png')
 
 if __name__ == "__main__":
