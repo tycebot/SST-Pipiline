@@ -55,20 +55,37 @@ def main():
         "End Date",
         datetime.now()
     ).strftime('%Y-%m-%d')
-    print(start_date)
-    # Download button
+    
+    # Cache the data
+    @st.cache_data
+    def get_cached_data(station_id, start_date, end_date):
+        return get_buoy_data(station_id, start_date, end_date)
+    
+    # Cache the plot
+    @st.cache_data
+    def get_cached_plot(df, station):
+        return plot_buoy_data(df, station)
+    
+    # Get data once and reuse
+    df = get_cached_data(BUOY_STATIONS[station], start_date, end_date)
+    
+    # Download buttons
     if st.sidebar.button("Download Data"):
-        df = get_buoy_data(BUOY_STATIONS[station], start_date, end_date)
-        filename = station+'.csv'
+        filename = station + '.csv'
         df.to_csv(filename)
         st.sidebar.success(f'Data saved to {filename}')
+    
+    if st.sidebar.button("Download Plot"):
+        plot = get_cached_plot(df, station)
+        filename = station + '_' + start_date + '_' + end_date + '.html'
+        plot.write_html(filename)
+        st.sidebar.success(f'Plot saved to {filename}')
     
     # Main content area
     st.header("Buoy Data Visualization")
     
-    # Get and plot the data
-    df = get_buoy_data(BUOY_STATIONS[station], start_date, end_date)
-    fig = plot_buoy_data(df,station)
+    # Get and plot the data (using cached plot)
+    fig = get_cached_plot(df, station)
     st.plotly_chart(fig)
 
 if __name__ == "__main__":
