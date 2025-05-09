@@ -14,7 +14,13 @@ api = NdbcApi()
 # Define buoy stations
 BUOY_STATIONS = {
     'Delaware Buoy': '44009',
-    'Humboldt Buoy': '46244'
+    'Humboldt Buoy': '46244',
+    'Bodega Buoy' : 'BDXC1',
+    'Point Reyes Buoy': 'PRYC1',
+    'Redwood City Buoy': 'RTYC1',
+    'San Francisco Bar Buoy': '46237',
+    'Trinidad Pier Buoy': 'TDPC1'
+    
 }
 
 def get_buoy_data(station_id, start_date, end_date):
