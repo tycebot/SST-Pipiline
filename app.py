@@ -75,12 +75,12 @@ def main():
     # Date range selection
     start_date = st.sidebar.date_input(
         "Start Date",
-        datetime(2020, 1, 1)
+        datetime(2024, 1, 1)
     ).strftime('%Y-%m-%d')
     
     end_date = st.sidebar.date_input(
         "End Date",
-        datetime.now()
+        datetime(2025, 1, 1)
     ).strftime('%Y-%m-%d')
     
     # Cache the data
