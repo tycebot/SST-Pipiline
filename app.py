@@ -106,7 +106,7 @@ def main():
     #Download button for data
     st.download_button("Download Data", 
     df.to_csv(index=False), 
-    file_name=station + start_date + '_to_' + end_date +
+    file_name=station + '_' + start_date + '_to_' + end_date +
     '.csv')
     
     # Download button for static plot   
