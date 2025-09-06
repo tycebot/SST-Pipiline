@@ -75,7 +75,7 @@ def main():
     # Date range selection
     start_date = st.sidebar.date_input(
         "Start Date",
-        datetime(2024, 1, 1)
+        datetime(2021, 1, 1)
     ).strftime('%Y-%m-%d')
     
     end_date = st.sidebar.date_input(
@@ -106,7 +106,7 @@ def main():
     #Download button for data
     st.download_button("Download Data", 
     df.to_csv(index=False), 
-    file_name=station + 
+    file_name=station + start_date + '_to_' + end_date +
     '.csv')
     
     # Download button for static plot   
