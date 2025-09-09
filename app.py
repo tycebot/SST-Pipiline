@@ -16,22 +16,30 @@ api = NdbcApi()
 
 # Define buoy stations
 BUOY_STATIONS = {
-    'Delaware Buoy': '44009',
-    'Humboldt Buoy': '46244',
-    'Bodega Buoy' : 'BDXC1',
+    'San Francisco (Farallons) Buoy': '46026',
+    'Fort Point Buoy 1': 'FTPC1',
+    'Fort Point Buoy 2': 'FPXC1',
+    'Davis Point': 'DPXC1',
+    'Caequinez Strait': 'CQUC1',
+    'Half Moon Bay 1': '46012',
+    'Half Moon Bay 2': '1801589',
     'Point Reyes Buoy': 'PRYC1',
-    'Redwood City Buoy': 'RTYC1',
+    'Monterey Bay Buoy': '46042',
     'San Francisco Bar Buoy': '46237',
     'Trinidad Pier Buoy': 'TDPC1'
     
 }
 Buoy_Coordinates={
-    'Delaware Buoy': '38.46,-74.692',
-    'Humboldt Buoy': '40.896,-124.358',
-    'Bodega Buoy' : '38.317,-123.071',
+    'San Francisco (Farallons) Buoy': '37.75,-122.838',
+    'Fort Point Buoy 1': '37.806,-122.466',
+    'Fort Point Buoy 2': '37.807,-122.466',
+    'Davis Point': '38.056,-122.264',
+    'Caequinez Strait': '38.066,-122,230',
+    'Half Moon Bay 1': '37.356,-122.881',
+    'Half Moon Bay 2': '37.21,-122.88',
     'Point Reyes Buoy': '37.996,-122.977',
-    'Redwood City Buoy': '37.507,-122.212',
     'San Francisco Bar Buoy': '37.788,-122.634',
+    'Monterey Bay Buoy': '36.785,-122.396',
     'Trinidad Pier Buoy': '41.055,-124.147'
 }
 def get_buoy_data(station_id, start_date, end_date):
