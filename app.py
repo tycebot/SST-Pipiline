@@ -34,7 +34,7 @@ Buoy_Coordinates={
     'Fort Point Buoy 1': '37.806,-122.466',
     'Fort Point Buoy 2': '37.807,-122.466',
     'Davis Point': '38.056,-122.264',
-    'Caequinez Strait': '38.066,-122,230',
+    'Caequinez Strait': '38.066,-122.230',
     'Half Moon Bay 1': '37.356,-122.881',
     'Half Moon Bay 2': '37.21,-122.88',
     'Point Reyes Buoy': '37.996,-122.977',
